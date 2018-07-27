@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var get = window.location.search.substr(1).split('&').reduce((a,v)=>{v=v.split('=');a[v[0]]=v[1];return a},{});
+console.log(get);
+</script>
+</head>
+<body>
+</body>
+</html>
