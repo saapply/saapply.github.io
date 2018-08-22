@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+Get my form ID:<br>
+<input style="width:350px;" type="text" id="in" placeholder="Paste the URL of your form here" /><br>
+<div id="msg"></div>
+<script>
+function fallbackCopyTextToClipboard(text) {
+  var textArea = document.createElement("textarea");
+  textArea.value = text;
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Fallback: Copying text command was ' + msg);
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err);
+  }
+
+  document.body.removeChild(textArea);
+}
+function copyTextToClipboard(text) {
+  if (!navigator.clipboard) {
+    fallbackCopyTextToClipboard(text);
+    return;
+  }
+  navigator.clipboard.writeText(text).then(function() {
+    console.log('Async: Copying to clipboard was successful!');
+  }, function(err) {
+    console.error('Async: Could not copy text: ', err);
+  });
+}
+x=document.getElementById("in");
+x.onpaste=()=>{setTimeout(()=>{
+	x.value=x.value.split(/[fF]orm[iI]d\=/)[1].split('&')[0];
+	copyTextToClipboard(x.value);
+	document.getElementById("msg").innerHTML='Copied ID to clipboard'
+},1)}
+</script>
+</body>
+</html>
