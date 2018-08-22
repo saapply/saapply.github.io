@@ -35,7 +35,7 @@ function copyTextToClipboard(text) {
 }
 x=document.getElementById("in");
 x.onpaste=()=>{setTimeout(()=>{
-	x.value=x.value.split(/[fF]orm[iI]d\=/)[1].split('&')[0];
+	x.value=x.value.split(/[iI]d\=/)[1].split('&')[0];
 	copyTextToClipboard(x.value);
 	document.getElementById("msg").innerHTML='Copied ID to clipboard'
 },1)}
